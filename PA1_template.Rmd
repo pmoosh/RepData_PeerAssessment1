@@ -2,18 +2,38 @@
 
 
 ## Loading and preprocessing the data
-
-
+```{r}
+act_table <- read.csv("./activity.csv", header = T)
+```
 
 ## What is mean total number of steps taken per day?
+```{r}
+tmp_table <- aggregate(act_table$steps, by=list(Category=act_table$date), FUN=sum)
+colnames(tmp_table) <- c("date", "steps")
+hist(tmp_table$steps, main = "Histogram of total daily steps", 
+     xlab = "Total daily steps")
+mean(as.vector(tmp_table[,2]), na.rm = T)
+median(as.vector(tmp_table[,2]), na.rm = T)
 
-
+```
 
 ## What is the average daily activity pattern?
+```{r}
+tmp_table <- aggregate(act_table$steps, by=list(Category=act_table$interval),
+                       FUN=mean, na.rm = T, na.action = NULL)
+colnames(tmp_table) <- c("interval","average steps")
+plot(tmp_table, type = "l")
+title("Average Daily Steps per Interval")
+```
 
-
-
+5-minute interval containing on average across all the days the maximum number of steps
+```{r}
+tmp_table[tmp_table$"average steps" == max(tmp_table$"average steps"),]
+```
 ## Imputing missing values
+```{r}
+sum(is.na(act_table$steps))
+```
 
 
 
