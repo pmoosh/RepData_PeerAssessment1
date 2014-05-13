@@ -275,9 +275,8 @@ hist(tmp_table$steps, main = &quot;Histogram of total daily steps&quot;, xlab = 
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 
 <pre><code class="r">library(lattice)
-cp_table[&quot;Weekdays&quot;] &lt;- NA
+cp_table[&quot;Weekdays&quot;] &lt;- &quot;Weekday&quot;
 cp_table[weekdays(as.Date(cp_table$date)) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;), 4] &lt;- &quot;Weekend&quot;
-cp_table[!(weekdays(as.Date(cp_table$date)) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;)), 4] &lt;- &quot;Weekday&quot;
 
 tmp_table &lt;- aggregate(cp_table$steps, by = list(interval = cp_table$interval, 
     Weekdays = cp_table$Weekdays), FUN = mean)

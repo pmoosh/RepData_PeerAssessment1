@@ -59,9 +59,8 @@ median(as.vector(tmp_table[,2]))
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
 library(lattice)
-cp_table["Weekdays"] <- NA
+cp_table["Weekdays"] <- "Weekday"
 cp_table[weekdays(as.Date(cp_table$date)) %in% c("Saturday", "Sunday"),4] <- "Weekend"
-cp_table[!(weekdays(as.Date(cp_table$date)) %in% c("Saturday", "Sunday")),4] <- "Weekday"
 
 tmp_table  <- aggregate(cp_table$steps, by=list(interval=cp_table$interval, Weekdays = cp_table$Weekdays ), FUN=mean)
 colnames(tmp_table) <- c(colnames(tmp_table)[1:2], "steps")
